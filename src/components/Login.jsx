@@ -49,7 +49,17 @@ function Login() {
             {error}
           </div>
         )}
-        <form onSubmit={handleSubmit(login)} className="mt-8 space-y-6">
+        <form
+          onSubmit={handleSubmit(login)}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            padding: "0 30px",
+            boxSizing: "border-box",
+          }}
+        >
           <Input
             label="Email"
             placeholder="you@example.com"

@@ -3,24 +3,63 @@ import React, { useId } from "react";
 const Input = React.forwardRef(
   ({ label, type = "text", className = "", error = "", ...props }, ref) => {
     const id = useId();
+
+    const containerStyle = {
+      display: "flex",
+      flexDirection: "column",
+      gap: "2px",
+      width: "100%",
+      // marginBottom: "5px",
+      padding: "10px",
+    };
+
+    const labelStyle = {
+      color: "#d4d4d8",
+      fontSize: "14px",
+      fontWeight: "500",
+    };
+
+    const inputStyle = {
+      width: "100%",
+      padding: "12px 16px",
+      borderRadius: "12px",
+      backgroundColor: "#09090b",
+      border: error ? "1px solid #ef4444" : "1px solid #3f3f46",
+      color: "#ffffff",
+      fontSize: "14px",
+      outline: "none",
+      boxSizing: "border-box",
+      transition: "all 0.2s ease",
+    };
+
+    const errorStyle = {
+      color: "#ef4444",
+      fontSize: "12px",
+    };
+
     return (
-      <div className="flex flex-col gap-2">
+      <div style={containerStyle}>
         {label && (
-          <label htmlFor={id} className="text-sm font-medium text-zinc-300">
+          <label htmlFor={id} style={labelStyle}>
             {label}
           </label>
         )}
+
         <input
-          type={type}
           id={id}
           ref={ref}
-          className={`w-[80%] px-4 py-3 rounded-2xl bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 text-sm outline-none focus:border-fuchsia-500 focus:ring-2 focus:ring-fuchsia-500/20 transition-all duration-200 ${error ? "border-red-500" : ""} ${className}`}
+          type={type}
+          style={inputStyle}
+          className={className}
           {...props}
         />
-        {error && <p className="text-xs text-red-400">{error}</p>}
+
+        {error && <span style={errorStyle}>{error}</span>}
       </div>
     );
   },
 );
+
+Input.displayName = "Input";
 
 export default Input;

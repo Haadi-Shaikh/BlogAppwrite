@@ -1,26 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Button({
   children,
   type = "button",
   variant = "primary",
-  className = "",
+  style = {},
   ...props
 }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const variants = {
-    primary:
-      "bg-fuchsia-500 hover:bg-fuchsia-400 text-white shadow-sm shadow-fuchsia-500/20",
-    secondary:
-      "bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 shadow-sm shadow-black/10",
-    ghost:
-      "bg-transparent hover:bg-zinc-800 text-zinc-300 border border-zinc-700",
-    danger: "bg-red-600 hover:bg-red-500 text-white",
+    primary: {
+      backgroundColor: isHovered ? "#d946ef" : "#c026d3",
+      color: "#ffffff",
+      border: "none",
+    },
+    secondary: {
+      backgroundColor: isHovered ? "#3f3f46" : "#27272a",
+      color: "#ffffff",
+      border: "1px solid #52525b",
+    },
+    ghost: {
+      backgroundColor: isHovered ? "#27272a" : "transparent",
+      color: "#d4d4d8",
+      border: "1px solid #52525b",
+    },
+    danger: {
+      backgroundColor: isHovered ? "#ef4444" : "#dc2626",
+      color: "#ffffff",
+      border: "none",
+    },
+  };
+
+  const buttonStyle = {
+    width: "80%",
+    padding: "12px 16px",
+    borderRadius: "12px",
+    fontSize: "15px",
+    fontWeight: "600",
+    cursor: "pointer",
+    outline: "none",
+    transition: "all 0.25s ease",
+    boxSizing: "border-box",
+    ...variants[variant],
+    ...style,
   };
 
   return (
     <button
       type={type}
-      className={`px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2 focus:ring-offset-zinc-900 ${variants[variant] || variants.primary} ${className}`}
+      style={buttonStyle}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       {...props}
     >
       {children}
