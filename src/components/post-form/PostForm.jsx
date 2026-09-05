@@ -35,6 +35,12 @@ function PostForm({ post }) {
   }, [post, reset]);
 
   const submit = async (data) => {
+    if (!userData?.$id) {
+      toast.error("Your session is unavailable. Please log in again.");
+      navigate("/login");
+      return;
+    }
+
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
